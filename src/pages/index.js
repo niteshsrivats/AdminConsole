@@ -1,21 +1,19 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { Router } from "@reach/router";
+import { AuthProvider } from "../providers/AuthProvider";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { theme } from "../styles/theme";
+import "typeface-roboto";
+import PrivateRoute from "../components/auth/PrivateRoute";
+import Dashboard from "../auth_pages/Dashboard";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
-
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
+export default () => (
+  <MuiThemeProvider theme={theme}>
+    <AuthProvider>
+      <Router >
+        <PrivateRoute path="/" component={Dashboard}/>
+        <PrivateRoute path="/dashboard" component={Dashboard}/>
+      </Router>
+    </AuthProvider>
+  </MuiThemeProvider>
 )
-
-export default IndexPage

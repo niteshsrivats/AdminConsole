@@ -1,12 +1,18 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "college-information-portal",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A Portal for sharing information in college.",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
+    "@reach/router": "latest",
+    "firebase": "^7.13.1",
     "gatsby": "^2.19.45",
     "gatsby-image": "^2.2.44",
+    "gatsby-link": "^2.3.2",
+    "gatsby-plugin-firebase": "^0.2.0-beta.4",
     "gatsby-plugin-manifest": "^2.3.3",
     "gatsby-plugin-offline": "^3.0.41",
     "gatsby-plugin-react-helmet": "^3.1.24",
@@ -16,7 +22,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
