@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Container, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import AlertDialog from "../components/common/AlertDialog";
-import Firebase from "../services/Firebase";
+import firebase from "gatsby-plugin-firebase";
 import { theme } from "../styles/theme";
 import { navigate } from "gatsby-link";
 
@@ -28,7 +28,7 @@ class Login extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = this.state;
-    await Firebase.auth().signInWithEmailAndPassword(username, password)
+    await firebase.auth().signInWithEmailAndPassword(username, password)
       .then(() => navigate("/"))
       .catch((e) => {
         if (e.code === "auth/invalid-email") {

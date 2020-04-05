@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -14,7 +14,7 @@ import Layout from "../components/common/Layout";
 import PrivateRoute from "../components/auth/PrivateRoute";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import SEO from "../components/SEO";
-import Firebase from "../services/Firebase";
+import DepartmentContext from "../contexts/DepartmentContext";
 
 const Dashboard = (props) => {
 
@@ -40,12 +40,9 @@ const Dashboard = (props) => {
       margin: "40px 16px"
     }
   }))();
+  const { departments } = useContext(DepartmentContext);
+  console.log(departments);
 
-  Firebase.firestore().collection("departments").doc("all").get()
-    .then((doc) => console.log(doc.data()))
-    .catch((error) => console.log(error));
-
-  // console.log(props.user);
   return (
     <>
       <SEO title="Dashboard"/>

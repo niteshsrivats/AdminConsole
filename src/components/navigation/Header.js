@@ -23,7 +23,7 @@ export const Header = ({ shiftWidth, open, onClick }) => {
       })
     },
     menuButton: {
-      marginRight: theme.spacing(4),
+      marginRight: theme.spacing(4)
     },
     hide: {
       display: "none"

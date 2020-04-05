@@ -1,23 +1,28 @@
 import React, { Component } from "react";
-import Firebase from "../../services/Firebase";
+import firebase from "gatsby-plugin-firebase";
 import Loader from "../common/Loader";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../styles/theme";
 import { navigate } from "gatsby-link";
+import { DepartmentsProvider } from "../../contexts/DepartmentContext";
 
 const PrivateRoute = (WrappedComponent) => class extends Component {
 
   state = { user: undefined };
 
   componentDidMount() {
-    Firebase.auth().onAuthStateChanged(user => this.setState({ user }));
+    firebase.auth().onAuthStateChanged(user => this.setState({ user }));
   }
 
   calculateComponent() {
     if (this.state.user === undefined) {
       return <Loader/>;
     } else if (!!this.state.user) {
-      return <WrappedComponent user={this.state.user}/>;
+      return (
+        <DepartmentsProvider>
+          <WrappedComponent user={this.state.user}/>
+        </DepartmentsProvider>
+      );
     } else {
       navigate("/login");
     }
@@ -29,7 +34,6 @@ const PrivateRoute = (WrappedComponent) => class extends Component {
         {this.calculateComponent()}
       </MuiThemeProvider>
     );
-
   }
 };
 
