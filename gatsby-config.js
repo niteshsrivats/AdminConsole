@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `College Information Portal`,
+    title: `College Portal`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@niteshsrivats`,
+    author: `Nitesh Srivats <niteshsrivats.k@gmail.com>`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

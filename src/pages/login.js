@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Button, Container, Grid, Paper, TextField, Typography } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import AlertDialog from "../common/AlertDialog";
-import firebase from "gatsby-plugin-firebase";
+import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import AlertDialog from "../components/common/AlertDialog";
+import Firebase from "../services/Firebase";
+import { theme } from "../styles/theme";
+import { navigate } from "gatsby-link";
 
-const styles = makeStyles((theme) => ({
+const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
   }
-}));
+});
 
 class Login extends Component {
   state = { username: ``, password: ``, show: false, message: "" };
@@ -26,7 +28,8 @@ class Login extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = this.state;
-    await firebase.auth().signInWithEmailAndPassword(username, password)
+    await Firebase.auth().signInWithEmailAndPassword(username, password)
+      .then(() => navigate("/"))
       .catch((e) => {
         if (e.code === "auth/invalid-email") {
           this.setState({ show: true, message: "Invalid Email ID." });
@@ -43,7 +46,7 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <>
+      <MuiThemeProvider theme={theme}>
         <AlertDialog show={this.state.show} title="Error" content={this.state.message}
                      handleClose={this.handleClose}/>
         <Container maxWidth={"xs"}>
@@ -51,7 +54,7 @@ class Login extends Component {
             <form onSubmit={this.handleSubmit} method="post">
               <Grid container direction={"column"} justify={"center"} alignItems={"center"} spacing={4}>
                 <Grid item>
-                  <Typography variant="h1" align="center" color={"primary"}>Login</Typography>
+                  <Typography variant="h2" align="center" color={"primary"}>Login</Typography>
                 </Grid>
                 <Grid item>
                   <TextField name="username" required={true} id="username" label="Username"
@@ -71,7 +74,7 @@ class Login extends Component {
             </form>
           </Paper>
         </Container>
-      </>
+      </MuiThemeProvider>
     );
   }
 }

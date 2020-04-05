@@ -1,21 +1,35 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
-import Login from "./Login";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Container from "@material-ui/core/Container";
+import React, { Component } from "react";
+import Firebase from "../../services/Firebase";
+import Loader from "../common/Loader";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { theme } from "../../styles/theme";
+import { navigate } from "gatsby-link";
 
-const PrivateRoute = ({ component: RouteComponent, location, ...rest }) => {
+const PrivateRoute = (WrappedComponent) => class extends Component {
 
-  const { currentUser } = useContext(AuthContext);
+  state = { user: undefined };
 
-  if (currentUser === undefined) {
+  componentDidMount() {
+    Firebase.auth().onAuthStateChanged(user => this.setState({ user }));
+  }
+
+  calculateComponent() {
+    if (this.state.user === undefined) {
+      return <Loader/>;
+    } else if (!!this.state.user) {
+      return <WrappedComponent user={this.state.user}/>;
+    } else {
+      navigate("/login");
+    }
+  }
+
+  render() {
     return (
-      <Container><CircularProgress/></Container>
+      <MuiThemeProvider theme={theme}>
+        {this.calculateComponent()}
+      </MuiThemeProvider>
     );
-  } else if (!!currentUser) {
-    return <RouteComponent user={currentUser} {...rest} />;
-  } else {
-    return <Login/>;
+
   }
 };
 
