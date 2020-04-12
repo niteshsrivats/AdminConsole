@@ -13,6 +13,22 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FB8C00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4FC3F7;
+}
+
 h1, h2, h3, h4, h5, h6, p, a {
     text-rendering: optimizeLegibility;
 }

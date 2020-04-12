@@ -17,6 +17,14 @@ const styles = (theme) => ({
 class Login extends Component {
   state = { username: ``, password: ``, show: false, message: "" };
 
+  componentDidMount() {
+    this.mounted = true;
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   handleUpdate = event => {
     if (/^[a-zA-Z0-9.!@#$%^&*()]*$/.test(event.target.value)) {
       this.setState({
@@ -31,10 +39,12 @@ class Login extends Component {
     await firebase.auth().signInWithEmailAndPassword(username, password)
       .then(() => navigate("/"))
       .catch((e) => {
-        if (e.code === "auth/invalid-email") {
-          this.setState({ show: true, message: "Invalid Email ID." });
-        } else {
-          this.setState({ show: true, message: "Invalid Credentials." });
+        if (this.mounted) {
+          if (e.code === "auth/invalid-email") {
+            this.setState({ show: true, message: "Invalid Email ID." });
+          } else {
+            this.setState({ show: true, message: "Invalid Credentials." });
+          }
         }
       });
   };

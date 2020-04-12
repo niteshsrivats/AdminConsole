@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "gatsby-plugin-firebase";
 
 
-const DepartmentContext = React.createContext();
+const DepartmentsContext = React.createContext();
 
 class DepartmentsProvider extends Component {
 
@@ -40,12 +40,12 @@ class DepartmentsProvider extends Component {
 
   render() {
     return (
-      <DepartmentContext.Provider value={this.state}>
+      <DepartmentsContext.Provider value={this.state}>
         {this.props.children}
-      </DepartmentContext.Provider>
+      </DepartmentsContext.Provider>
     );
   }
 }
 
 export { DepartmentsProvider };
-export default DepartmentContext;
+export default DepartmentsContext;

@@ -11,8 +11,10 @@ export const theme = responsiveFontSizes(
           contrastText: "#FFF"
         },
         secondary: {
-          main: "#4fc3f7"
-          // contrastText: '#FFFFFF'
+          main: "#4fc3f7",
+          light: "#4fc3f7",
+          dark: "#fb8c00",
+          contrastText: "#FFF"
         },
         text: {
           // primary: "#3A3A3a",

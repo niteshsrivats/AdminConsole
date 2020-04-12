@@ -4,9 +4,9 @@ import Loader from "../common/Loader";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../styles/theme";
 import { navigate } from "gatsby-link";
-import { DepartmentsProvider } from "../../contexts/DepartmentContext";
+import DataContextWrapper from "../../contexts/DataContextWrapper";
 
-const PrivateRoute = (WrappedComponent) => class extends Component {
+const PrivateRoute = (RouteComponent) => class extends Component {
 
   state = { user: undefined };
 
@@ -19,9 +19,9 @@ const PrivateRoute = (WrappedComponent) => class extends Component {
       return <Loader/>;
     } else if (!!this.state.user) {
       return (
-        <DepartmentsProvider>
-          <WrappedComponent user={this.state.user}/>
-        </DepartmentsProvider>
+        <DataContextWrapper>
+          <RouteComponent user={this.state.user}/>
+        </DataContextWrapper>
       );
     } else {
       navigate("/login");
