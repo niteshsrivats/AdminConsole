@@ -5,11 +5,11 @@ export const validEntry = (name, data) => {
   return !!entryRegex[name].test(data);
 };
 
-export const validateEntries = data => {
+export const validateEntries = (data, allowNulls) => {
   let valid = true;
   let errors = {};
   Object.keys(data).forEach(key => {
-    if (regex[key].test(data[key])) {
+    if ((!!allowNulls && !!!data[key]) || regex[key].test(data[key])) {
       errors[key] = false;
     } else {
       valid = false;

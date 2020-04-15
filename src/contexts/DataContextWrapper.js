@@ -1,10 +1,17 @@
-import { DepartmentsProvider } from "./DepartmentsContext";
-import React from "react";
+import { DepartmentsProvider } from './DepartmentsContext';
+import React from 'react';
+import { StudentsProvider } from './StudentContext';
+import { TeachersProvider } from './TeacherContext';
+import { AdminsProvider } from './AdminContext';
 
-const DataContextWrapper = (props) => {
+const DataContextWrapper = props => {
   return (
     <DepartmentsProvider>
-      {props.children}
+      <StudentsProvider>
+        <TeachersProvider>
+          <AdminsProvider>{props.children}</AdminsProvider>
+        </TeachersProvider>
+      </StudentsProvider>
     </DepartmentsProvider>
   );
 };

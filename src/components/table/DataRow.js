@@ -5,26 +5,23 @@ const DataRow = ({ headings, row, selected, onClick }) => {
   return (
     <TableRow
       hover
-      onClick={() => onClick(row.id)}
+      onClick={() => onClick(row.documentId)}
       role="checkbox"
-      key={row.id}
+      key={row.documentId}
       selected={selected}
     >
       <TableCell padding="checkbox">
         <Checkbox checked={selected} />
       </TableCell>
-      {headings.map(heading => {
-        const id = heading.id.toLowerCase();
-        const value = heading.array ? row[id].join(', ') : row[id];
-        return (
-          <TableCell
-            align={'center'}
-            padding={heading.disablePadding ? 'none' : 'default'}
-            key={value}
-          >
-            {value}
-          </TableCell>
-        );
+      {Object.keys(headings).map(id => {
+        if (!!headings[id].show) {
+          const value = headings[id].array ? row[id].join(', ') : row[id];
+          return (
+            <TableCell align="center" padding="default" key={value}>
+              {value}
+            </TableCell>
+          );
+        }
       })}
     </TableRow>
   );

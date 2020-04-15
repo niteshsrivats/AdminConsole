@@ -19,25 +19,29 @@ const TableHeader = ({
           onChange={checkBoxHandler}
         />
       </TableCell>
-      {headings.map(heading => (
-        <TableCell
-          key={heading.id.toLowerCase()}
-          align={'center'}
-          padding={heading.padding ? 'none' : 'default'}
-        >
-          {heading.sort ? (
-            <TableSortLabel
-              active={orderBy === heading.id.toLowerCase()}
-              direction={order}
-              onClick={() => headingClickHandler(heading.id.toLowerCase())}
+      {Object.keys(headings).map(id => {
+        if (!!headings[id].show) {
+          return (
+            <TableCell
+              key={id}
+              align={'center'}
+              padding={!!headings[id].padding ? 'none' : 'default'}
             >
-              {heading.id}
-            </TableSortLabel>
-          ) : (
-            heading.id
-          )}
-        </TableCell>
-      ))}
+              {!!headings[id].sort ? (
+                <TableSortLabel
+                  active={orderBy === id}
+                  direction={order}
+                  onClick={() => headingClickHandler(id)}
+                >
+                  {headings[id].name}
+                </TableSortLabel>
+              ) : (
+                headings[id].name
+              )}
+            </TableCell>
+          );
+        }
+      })}
     </TableRow>
   );
 };

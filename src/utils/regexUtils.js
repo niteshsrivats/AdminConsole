@@ -5,6 +5,7 @@ const phoneNumberRegex = /^\d{10}$/;
 const departmentRegex = /^[A-Z]{2,3}$/;
 const yearRegex = /^\d{4}$/;
 const sectionsRegex = /^(\d[A-Z]{3,4}\d{4},? ?)+$/;
+const semestersRegex = /^(\d-\d{4},? ?)+$/;
 
 export const regex = {
   name: nameRegex,
@@ -14,13 +15,15 @@ export const regex = {
   department: departmentRegex,
   year: yearRegex,
   sections: sectionsRegex,
+  semesters: semestersRegex,
 };
 
 const numericRegex = /^[0-9]*$/;
 const spacedLetterRegex = /^[a-zA-Z ]*$/;
 const alphanumericRegex = /^[a-zA-Z0-9]*$/;
-const alphanumericSpacedCommaRegex = /^[a-zA-Z0-9 ,]*$/;
 const emailEntryRegex = /^[\w.@]*$/;
+const sectionsEntryRegex = /^[a-zA-Z0-9 ,]*$/;
+const semestersEntryRegex = /^[0-9\- ,]*$/;
 
 export const entryRegex = {
   search: spacedLetterRegex,
@@ -30,5 +33,6 @@ export const entryRegex = {
   number: numericRegex,
   department: alphanumericRegex,
   year: numericRegex,
-  sections: alphanumericSpacedCommaRegex,
+  sections: sectionsEntryRegex,
+  semesters: semestersEntryRegex,
 };

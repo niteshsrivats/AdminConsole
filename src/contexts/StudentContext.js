@@ -1,14 +1,17 @@
-import React, { Component, useState } from 'react';
-import firebase from 'gatsby-plugin-firebase';
+import React, { useState } from 'react';
 
 const StudentsContext = React.createContext();
 
-const StudentsProvider = () => {
-  const [students, setStudents] = useState([]);
+const StudentsProvider = props => {
+  const [students, setStudents] = useState({
+    records: [],
+    previousSearch: {},
+    fetchEnabled: true,
+  });
 
   return (
     <StudentsContext.Provider value={{ students, setStudents }}>
-      {this.props.children}
+      {props.children}
     </StudentsContext.Provider>
   );
 };
