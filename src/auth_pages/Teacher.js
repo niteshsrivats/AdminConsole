@@ -96,7 +96,7 @@ const Teacher = () => {
 
   const addDocument = async data => {
     for (let i = 0; i < departments.length; i++) {
-      if (departments[i].code === data.department) {
+      if (departments[i] === data.department) {
         const uid = await createUser(data.email, 'teacher');
         if (!!uid) {
           const { sections, semesters } = getSectionsAndSemesters(data.sections);

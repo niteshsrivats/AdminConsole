@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
+const db = admin.firestore();
 
 exports.createUser = functions.https.onCall((data, context) => {
   if (!context.auth.token.admin) {
@@ -33,6 +34,17 @@ exports.deleteUser = functions.https.onCall((data, context) => {
     .auth()
     .getUserByEmail(data.email)
     .then(user => admin.auth().deleteUser(user.uid));
+});
+
+exports.onPostCreate = functions.firestore.document('posts/{postId}').onCreate((snap, context) => {
+  return snap.ref.set(
+    {
+      id: context.params.postId,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
 });
 
 // exports.grantUserRole = functions.https.onCall((data, context) => {

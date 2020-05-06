@@ -21,6 +21,8 @@ const DataRow = ({ headings, row, selected, onClick }) => {
               {value}
             </TableCell>
           );
+        } else {
+          return <></>;
         }
       })}
     </TableRow>

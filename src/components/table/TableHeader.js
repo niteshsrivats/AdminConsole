@@ -40,6 +40,8 @@ const TableHeader = ({
               )}
             </TableCell>
           );
+        } else {
+          return <></>;
         }
       })}
     </TableRow>

@@ -67,14 +67,6 @@ const Student = () => {
       filterCombinations: ['year', 'semesters'],
       size: 'small',
     },
-    year: {
-      name: 'Year',
-      show: true,
-      edit: true,
-      filter: true,
-      filterCombinations: ['department'],
-      size: 'small',
-    },
     semesters: {
       name: 'Semesters',
       array: true,
@@ -95,33 +87,33 @@ const Student = () => {
   };
 
   const addDocument = async data => {
-    for (let i = 0; i < departments.length; i++) {
-      if (departments[i].code === data.department) {
-        const uid = await createUser(data.email, 'student');
-        if (!!uid) {
-          const { sections, semesters } = getSectionsAndSemesters(data.sections);
-          data.documentId = uid;
-          data.sections = sections;
-          data.semesters = semesters;
-          data.type = 'student';
-          createUserDocument('users', data);
-          return true;
-        } else {
-          setAlert({
-            show: true,
-            title: 'Error',
-            content: `User with email ${data.email} already exists.`,
-          });
-          return false;
-        }
-      }
+    // for (let i = 0; i < departments.length; i++) {
+    //   if (departments[i] === data.department) {
+    const uid = await createUser(data.email, 'student');
+    if (!!uid) {
+      const { sections, semesters } = getSectionsAndSemesters(data.sections);
+      data.documentId = uid;
+      data.sections = sections;
+      data.semesters = semesters;
+      data.type = 'student';
+      createUserDocument('users', data);
+      return true;
+    } else {
+      setAlert({
+        show: true,
+        title: 'Error',
+        content: `User with email ${data.email} already exists.`,
+      });
+      return false;
     }
-    setAlert({
-      show: true,
-      title: 'Error',
-      content: `Department with code ${data.department} does not exists.`,
-    });
-    return false;
+    // }
+    // }
+    // setAlert({
+    //   show: true,
+    //   title: 'Error',
+    //   content: `Department with code ${data.department} does not exists.`,
+    // });
+    // return false;
   };
 
   const updateDocument = data => {

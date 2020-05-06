@@ -19,7 +19,7 @@ class DataForm extends Component {
     const errors = {};
     const { headings } = this.props;
     if (!!this.props.editData) {
-      Object.keys(headings).map(id => {
+      Object.keys(headings).forEach(id => {
         if (!!headings[id].array) {
           data[id] = this.props.editData[id].join(', ');
         } else {
@@ -29,8 +29,10 @@ class DataForm extends Component {
       });
     } else {
       Object.keys(headings).forEach(id => {
-        data[id] = '';
-        errors[id] = false;
+        if (!!headings[id].show) {
+          data[id] = '';
+          errors[id] = false;
+        }
       });
     }
     this.setState({ data: data, errors: errors });
@@ -47,7 +49,6 @@ class DataForm extends Component {
   handleSubmit = async () => {
     const { valid, errors } = validateEntries(this.state.data);
     this.setState({ disable: true, errors: errors });
-
     if (valid) {
       let success;
       if (!!this.props.editData) {
@@ -92,6 +93,8 @@ class DataForm extends Component {
                 />
               </TableCell>
             );
+          } else {
+            return <></>;
           }
         })}
       </>
